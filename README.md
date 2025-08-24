@@ -1,1 +1,119 @@
-# Raj-laxmi-store
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Raj Laxmi Store - Preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {font-family: Arial, sans-serif; margin:0; background:#f9f9f9; color:#333;}
+    header {background:#2c3e50; color:#fff; padding:1rem; text-align:center;}
+    nav a {color:#fff; margin:0 15px; text-decoration:none; font-weight:bold;}
+    .hero {background:#3498db; color:#fff; text-align:center; padding:40px 20px;}
+    .products {display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+               gap:20px; padding:20px; width:90%; margin:auto;}
+    .card {background:#fff; border-radius:8px; padding:15px; box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+    .card img {width:100%; height:180px; object-fit:cover; border-radius:6px;}
+    .card h3 {margin:10px 0;}
+    .btn {background:#2c3e50; color:#fff; padding:8px 12px; border:none; border-radius:5px;
+          cursor:pointer; font-weight:bold;}
+    .cart {background:#fff; padding:20px; width:90%; margin:30px auto; border-radius:8px;
+           box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+    .cart-item {display:flex; justify-content:space-between; margin:10px 0;}
+    footer {text-align:center; padding:20px; background:#2c3e50; color:#fff; margin-top:40px;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Raj Laxmi Books & Audio</h1>
+    <nav>
+      <a href="#books">Books</a>
+      <a href="#audio">Audio</a>
+      <a href="#cart">Cart</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Welcome to Raj Laxmi Store</h2>
+    <p>Explore our curated collection of books and audio</p>
+  </section>
+
+  <section class="products" id="books">
+    <div class="card">
+      <img src="https://picsum.photos/400/200?book1" alt="Book 1">
+      <h3>The Wisdom of Words</h3>
+      <p>₹399</p>
+      <button class="btn" onclick="addToCart('The Wisdom of Words', 399)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="https://picsum.photos/400/200?book2" alt="Book 2">
+      <h3>Journey of Knowledge</h3>
+      <p>₹299</p>
+      <button class="btn" onclick="addToCart('Journey of Knowledge', 299)">Add to Cart</button>
+    </div>
+  </section>
+
+  <section class="products" id="audio">
+    <div class="card">
+      <img src="https://picsum.photos/400/200?audio1" alt="Audio 1">
+      <h3>Relaxing Audio Collection</h3>
+      <p>₹199</p>
+      <button class="btn" onclick="addToCart('Relaxing Audio Collection', 199)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="https://picsum.photos/400/200?audio2" alt="Audio 2">
+      <h3>Motivational Talks</h3>
+      <p>₹149</p>
+      <button class="btn" onclick="addToCart('Motivational Talks', 149)">Add to Cart</button>
+    </div>
+  </section>
+
+  <section class="cart" id="cart">
+    <h2>Your Cart</h2>
+    <div id="cart-items"></div>
+    <h3 id="total">Total: ₹0</h3>
+    <button class="btn" onclick="checkout()">Place Order</button>
+  </section>
+
+  <footer>
+    <p>© 2025 Raj Laxmi Store. All rights reserved.</p>
+  </footer>
+
+  <script>
+    let cart = [];
+
+    function addToCart(name, price) {
+      cart.push({name, price});
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-items');
+      container.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price;
+        container.innerHTML += `<div class='cart-item'>
+            <span>${item.name} - ₹${item.price}</span>
+            <button onclick='removeItem(${index})'>Remove</button>
+          </div>`;
+      });
+      document.getElementById('total').innerText = 'Total: ₹' + total;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      alert('Order placed successfully! Thank you for shopping at Raj Laxmi Store.');
+      cart = [];
+      renderCart();
+    }
+  </script>
+</body>
+</html>
